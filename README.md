@@ -1,2 +1,2 @@
-# 100-days-of-code
-100 days of coding challenge
+# 100 days of code
+100 day coding challenge
