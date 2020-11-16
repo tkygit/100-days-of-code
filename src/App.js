@@ -1,16 +1,10 @@
-import styled from 'styled-components';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Homepage from './components/Homepage'
-
-const AppStyles = styled.div`
-  .App {
-    text-align: center;
-  }
-`;
+import Page from './components/Page';
+import Homepage from './components/Homepage';
 
 function App() {
   return (
-    <AppStyles>
+    <Page>
       <div className="App">
         <Router>
           <Switch>
@@ -20,7 +14,7 @@ function App() {
           </Switch>
         </Router>
       </div>
-    </AppStyles>
+    </Page>
   );
 }
 
