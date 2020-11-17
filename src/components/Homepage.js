@@ -1,19 +1,83 @@
 import React from 'react'
+import styled from 'styled-components'
 import Navbar from './Navbar'
-import Details from './styles/Details'
+import Button from './styles/Button'
 import Footer from './Footer'
 
+const HomepageStyles = styled.div`
+  .hero {
+    text-align: center;
+    padding: 10rem 20rem 10rem 20rem;
+  }
+
+  .btn {
+    padding: 1.5rem 10rem;
+  }
+
+  .hero-btn {
+    margin: 5rem auto;
+  }
+
+  .details-btn {
+    margin-top: 2rem;
+  }
+
+  .details-section {
+    display: flex;
+    padding-bottom: 8rem;
+    justify-content: center;
+  }
+
+  .details-heading {
+    width: 38rem;
+    margin-top: -1rem;
+  }
+  
+  .details-text {
+    max-width: 63rem;
+  }
+`;
+
+
 function Homepage() {
-    return (
-        <div>
-            <Navbar/>
-            <div className="hero">Hero</div>
-            <Details>the challenge.</Details>
-            <Details>the rules.</Details>
-            <Details>get ready.</Details>
-            <Footer/>
+  return (
+    <HomepageStyles>
+      <Navbar/>
+      <div className="hero">
+        <h1 className="hero-heading">
+          100 days to become a better programmer
+        </h1>
+        <Button className="btn hero-btn">get started</Button>
+      </div>
+      <section className="details-section" id="challenge">
+        <h2 className="details-heading">the challenge.</h2>
+        <div className="details-text">
+        the key to becoming a better programmer is to actually write code. pick something you want to learn or get better at and <strong>challenge yourself to commit something to github for 100 days.</strong>
+        <br></br>
+        you’ll see:<br></br>
+        - your coding abilities improve;<br></br>
+        - ideas you had turn into finished projects; and<br></br>
+        - your incredible capacity to learn new things;
         </div>
-    )
+      </section>
+      <section className="details-section" id="rules">
+        <h2 className="details-heading">the rules.</h2>
+        <div className="details-text">
+        some general guidelines to consider so you get the most out of this 100 day challenge.<br></br>
+        1. you don’t need to do 100 consecutive days of coding. this app will count the 100 cumulative days of coding. the key is consistency over time, not perfection.<br></br>
+        2. you should only count days of deliberate practice, not mindless copy/paste exercises or shallow code edits. the goal is to make you a more effective programmer, and that means focused programming.
+        </div>
+      </section>
+      <section className="details-section">
+        <h2 className="details-heading">get ready.</h2>
+        <div className="details-text">
+          if you’re ready to take on the challenge, sign up via your github account.
+          <Button className="btn details-btn">sign up</Button>
+        </div>
+      </section>
+      <Footer/>
+    </HomepageStyles>
+  )
 }
 
 export default Homepage

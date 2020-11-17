@@ -27,18 +27,16 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: inherit;
   }
   body {
-    padding: 0;
-    margin: 0;
+    padding: 5rem 6rem;
     font-size: 1.6rem;
     line-height: 1.5;
     font-family: 'Anonymous Pro', monospace;
     font-weight: 400;
   }
   a {
-    text-decoration: none;
     cursor: pointer;
     color: white;
-    font-weight: 400;
+    font-weight: 700;
   }
   button {  
     font-family: 'Anonymous Pro', monospace; 
@@ -57,9 +55,9 @@ const GlobalStyle = createGlobalStyle`
   }
 
   h1 {
-    font-size: 3.2rem;
+    font-size: 6rem;
     font-family: 'Anonymous Pro', monospace;
-    font-weight: 700;
+    font-weight: 400;
 
     @media (max-width: ${props => props.theme.mobileWidth}) {
       font-size: 2rem;
@@ -67,7 +65,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   h2 {
-    font-size: 2rem;
+    font-size: 4rem;
     font-family: 'Anonymous Pro', monospace;
     font-weight: 700;
   }
