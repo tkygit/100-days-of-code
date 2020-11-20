@@ -20,10 +20,11 @@ const NavStyles = styled.div`
     padding: 0;
     display: flex;
     justify-self: end;
-    background: none;
   }
 
   a {
+    font-weight: 400;
+    text-decoration: none;
     padding: 1rem 0;
     padding-right: 7rem;
     display: flex;
@@ -35,11 +36,8 @@ const NavStyles = styled.div`
       font-size: 10px;
       padding: 0 10px;
     }
-    &:hover {
-      color: ${props => props.theme.pink};
-    }
-
   }
+
   @media (max-width: 1300px) {
     border-top: 1px solid ${props => props.theme.lightgrey};
     width: 100%;
@@ -57,7 +55,7 @@ function Navbar() {
             <a href="#challenge">the challenge</a>
             <a href="#rules">the rules</a>
             <a href="/login">log in</a>
-            <Button>get started</Button>
+            <Button>sign up</Button>
           </div>
         </div>
       </NavStyles>

@@ -7,7 +7,11 @@ import Footer from './Footer'
 const HomepageStyles = styled.div`
   .hero {
     text-align: center;
-    padding: 10rem 20rem 10rem 20rem;
+    padding: 11rem 20rem 11rem 20rem;
+  }
+
+  .hero-heading {
+    max-width: 80rem;
   }
 
   .btn {
@@ -15,7 +19,7 @@ const HomepageStyles = styled.div`
   }
 
   .hero-btn {
-    margin: 5rem auto;
+    margin: 5rem auto 0 auto;
   }
 
   .details-btn {

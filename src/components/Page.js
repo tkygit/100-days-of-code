@@ -37,6 +37,10 @@ const GlobalStyle = createGlobalStyle`
     cursor: pointer;
     color: white;
     font-weight: 700;
+    &:hover {
+      font-weight: 700;
+      color: ${props => props.theme.pink};
+    }
   }
   button {  
     font-family: 'Anonymous Pro', monospace; 
