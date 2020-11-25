@@ -1,40 +1,68 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
+import moment from 'moment'
+import { SingleDatePicker } from 'react-dates'
+
 import Navbar from './Navbar'
 import Button from './styles/Button'
 import Footer from './Footer'
 
 const GetStartedStyles = styled.div`
-    .get-started-container {
-        padding: 11rem 20rem 11rem 20rem;
-        font-size: 8rem;
-    }
+  .get-started-container {
+    padding: 11rem 15rem 11rem 15rem;
+    font-size: 7rem;
+    text-transform: lowercase;
+  }
 
-    .git-username, input {
-        font-size: 8rem;
-        font-family: inherit;
-        color: ${props => props.theme.pink};
-        background: none;
-        border: none;
-        text-align: center;
-    }
+  .git-username, input {
+    font-size: 7rem;
+    font-family: inherit;
+    color: ${props => props.theme.pink};
+    background: none;
+    border: none;
+    text-transform: lowercase;
+  }
 
-    .days-input {
-        max-width: 14rem;
-    }
+  .days-input {
+    max-width: 14rem;
+  }
 
-    .date-input {
-        max-width: 80rem;
-    }
+  .SingleDatePickerInput {
+    background: none;
+  }
 
-    .submit-get-started {
-        margin-top: 6rem;
-        font-size: 8rem;
-    }
+  .DateInput {
+    background: none;
+    width: auto;
+  }
 
+  .SingleDatePickerInput_calendarIcon {
+    padding: 0;
+    margin-right: 2rem; 
+  }
+
+  .SingleDatePickerInput_calendarIcon_svg {
+    fill: ${props => props.theme.pink};
+    height: auto;
+    width: 60px;
+  }
+
+  .CalendarDay__selected {
+    background: ${props => props.theme.pink};
+    color: white;
+    border: none;
+  }
+
+  .submit-get-started {
+    margin-top: 6rem;
+    font-size: 6rem;
+  }
 `;
 
 function GetStarted() {
+  const [startDate, setStartDate] = useState(moment()) 
+  const [calendarFocused, setCalendarFocused] = useState(false)
+
   return (
     <GetStartedStyles>
       <Navbar/>
@@ -43,7 +71,20 @@ function GetStarted() {
             <span>i,</span><span className="git-username">@gitusername</span>
             <span>, commit to starting a 100</span>
             <span> day coding challenge starting </span>
-            <input type="`text`" value="20th november 2020" className="date-input"/>
+            <SingleDatePicker
+              date={startDate}
+              onDateChange={(date) => setStartDate(date)}
+              focused={calendarFocused}
+              onFocusChange={({focused}) => setCalendarFocused(focused)}
+              numberOfMonths={1}
+              isOutsideRange={() => false}
+              displayFormat="Do MMMM YYYY"
+              showDefaultInputIcon inputIconPosition="before"
+              noBorder={true}
+              hideKeyboardShortcutsPanel={true}
+              keepOpenOnDateSelect={false}
+              verticalSpacing="80"
+            />
             <Button className="submit-get-started">start</Button>
         </form>
       </div>
