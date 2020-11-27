@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Page from './components/Page';
 import Homepage from './components/Homepage';
 import GetStarted from './components/GetStarted';
+import MyProgress from './components/MyProgress';
 
 function App() {
   return (
@@ -11,6 +12,9 @@ function App() {
           <Switch>
             <Route path="/get-started">
               <GetStarted/>
+            </Route>
+            <Route path="/my-progress">
+              <MyProgress/>
             </Route>
             <Route path="/">
               <Homepage/>

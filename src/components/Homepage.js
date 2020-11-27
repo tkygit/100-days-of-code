@@ -53,32 +53,32 @@ function Homepage() {
         </h1>
         <Button className="btn hero-btn">get started</Button>
       </div>
-      <section className="details-section" id="challenge">
-        <h2 className="details-heading">the challenge.</h2>
-        <div className="details-text">
-        the key to becoming a better programmer is to actually write code. pick something you want to learn or get better at and <strong>challenge yourself to commit something to github for 100 days.</strong>
-        <br></br>
-        you’ll see:<br></br>
-        - your coding abilities improve;<br></br>
-        - ideas you had turn into finished projects; and<br></br>
-        - your incredible capacity to learn new things;
-        </div>
-      </section>
-      <section className="details-section" id="rules">
-        <h2 className="details-heading">the rules.</h2>
-        <div className="details-text">
-        some general guidelines to consider so you get the most out of this 100 day challenge.<br></br>
-        1. you don’t need to do 100 consecutive days of coding. this app will count the 100 cumulative days of coding. the key is consistency over time, not perfection.<br></br>
-        2. you should only count days of deliberate practice, not mindless copy/paste exercises or shallow code edits. the goal is to make you a more effective programmer, and that means focused programming.
-        </div>
-      </section>
-      <section className="details-section">
-        <h2 className="details-heading">get ready.</h2>
-        <div className="details-text">
-          if you’re ready to take on the challenge, sign up via your github account.
-          <Button className="btn details-btn">sign up</Button>
-        </div>
-      </section>
+        <section className="details-section" id="challenge">
+          <h2 className="details-heading">the challenge.</h2>
+          <div className="details-text">
+          the key to becoming a better programmer is to actually write code. pick something you want to learn or get better at and <strong>challenge yourself to commit something to github for 100 days.</strong>
+          <br></br>
+          you’ll see:<br></br>
+          - your coding abilities improve;<br></br>
+          - ideas you had turn into finished projects; and<br></br>
+          - your incredible capacity to learn new things;
+          </div>
+        </section>
+        <section className="details-section" id="rules">
+          <h2 className="details-heading">the rules.</h2>
+          <div className="details-text">
+          some general guidelines to consider so you get the most out of this 100 day challenge.<br></br>
+          1. you don’t need to do 100 consecutive days of coding. this app will count the 100 cumulative days of coding. the key is consistency over time, not perfection.<br></br>
+          2. you should only count days of deliberate practice, not mindless copy/paste exercises or shallow code edits. the goal is to make you a more effective programmer, and that means focused programming.
+          </div>
+        </section>
+        <section className="details-section">
+          <h2 className="details-heading">get ready.</h2>
+          <div className="details-text">
+            if you’re ready to take on the challenge, sign up via your github account.
+            <Button className="btn details-btn">sign up</Button>
+          </div>
+        </section>
       <Footer/>
     </HomepageStyles>
   )
