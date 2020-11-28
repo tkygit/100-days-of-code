@@ -9,7 +9,7 @@ import Footer from './Footer'
 
 const GetStartedStyles = styled.div`
   .get-started-container {
-    padding: 11rem 15rem 11rem 15rem;
+    padding: ${props => props.theme.pagePadding};
     font-size: 7rem;
     text-transform: lowercase;
   }

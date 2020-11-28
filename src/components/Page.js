@@ -10,7 +10,8 @@ const theme = {
   mobileWidth: '480px',
   tabletWidth: '768px',
   desktopWidth: '1024px',
-  largeWidth: '1200px'
+  largeWidth: '1200px',
+  pagePadding: '11rem 15rem 11rem 15rem'
 };
 
 const StyledPage = styled.div`
@@ -72,6 +73,19 @@ const GlobalStyle = createGlobalStyle`
     font-size: 4rem;
     font-family: 'Anonymous Pro', monospace;
     font-weight: 700;
+  }
+
+  h3 {
+    font-size: 2.8rem;
+    font-family: 'Anonymous Pro', monospace;
+    font-weight: 700;
+  }
+
+  h4 {
+    font-size: 2rem;
+    font-family: 'Anonymous Pro', monospace;
+    font-weight: 700;
+    margin: 0;
   }
 `;
 

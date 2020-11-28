@@ -52,8 +52,8 @@ function Navbar() {
         <div className="bar">
           <a href="/"><img src="/100.svg" alt="./100"/></a>
           <div className="links-container">
-            <a href="#challenge">the challenge</a>
-            <a href="#rules">the rules</a>
+            <a href="/#challenge">the challenge</a>
+            <a href="/#rules">the rules</a>
             <a href="/login">log in</a>
             <Button>sign up</Button>
           </div>
