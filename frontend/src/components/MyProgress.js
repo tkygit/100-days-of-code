@@ -52,6 +52,19 @@ const MyProgressStyles = styled.div`
     padding-right: 2rem;
     width: 70%;
   }
+
+  .repo-name {
+    font-weight: 700;
+    font-size: 1.4rem;
+  }
+
+  .commit-description {
+    padding: 0.5rem 0;
+  }
+
+  .commit-url {
+    font-size: 1.4rem;
+  }
 `;
 
 const CurrentProgressBar = styled.div`
@@ -100,8 +113,9 @@ function MyProgress() {
             <div className="commit-date">{moment().format("Do MMMM YYYY")}</div>
           </div>
           <div className="commit-details">
+            <div className="repo-name">100-days-of-code</div>
             <div className="commit-description">Initial commit</div>
-            <a href="wwww.github.com">Go to commit</a>
+            <a href="wwww.github.com" className="commit-url">Go to commit</a>
           </div>
         </div>
       </div>
