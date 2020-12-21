@@ -4,6 +4,7 @@
   "private": true,
   "description": "100 day coding challenge",
   "main": "start.js",
+  "type": "module",
   "scripts": {
     "prod": "node ./start.js",
     "watch": "nodemon ./start.js --ignore public/",
