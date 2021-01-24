@@ -1,4 +1,5 @@
-import firebase from "firebase";
+import firebase from "firebase/app";
+import "firebase/auth";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -11,6 +12,7 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
+const githubAuthProvider = new firebase.auth.GithubAuthProvider();
 
-var provider = new firebase.auth.GithubAuthProvider();
-provider.addScope('repo:status');
+const fire = firebase;
+export { fire, githubAuthProvider };

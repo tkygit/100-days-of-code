@@ -4,9 +4,12 @@
   "private": true,
   "dependencies": {
     "@babel/runtime": "^7.0.0",
+    "@octokit/core": "^3.2.4",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "axios": "^0.21.1",
+    "firebase": "^8.2.1",
     "moment": "^2.18.1",
     "react": "^0.14||^15.5.4||^16.1.1",
     "react-datepicker": "^3.3.0",

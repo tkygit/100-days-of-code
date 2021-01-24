@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import { fire } from '../firebase'
 import Button from './styles/Button';
+import GithubLogin from './GithubLogin'
 
 const NavStyles = styled.div`
 
@@ -47,19 +49,34 @@ const NavStyles = styled.div`
 `;
 
 function Navbar() {
-    return (     
-      <NavStyles>
-        <div className="bar">
-          <a href="/"><img src="/100.svg" alt="./100"/></a>
-          <div className="links-container">
-            <a href="/#challenge">the challenge</a>
-            <a href="/#rules">the rules</a>
-            <a href="/login">log in</a>
-            <Button>sign up</Button>
-          </div>
+
+  const [ isLoggedIn, setIsLoggedIn ] = useState(false);
+
+  fire.auth().onAuthStateChanged((user) => {
+    return user ? setIsLoggedIn(true) : setIsLoggedIn(false);
+  });
+
+  return (     
+    <NavStyles>
+      <div className="bar">
+        <a href="/"><img src="/100.svg" alt="./100"/></a>
+        <div className="links-container">
+          <a href="/#challenge">the challenge</a>
+          <a href="/#rules">the rules</a>
+          { !isLoggedIn 
+            ? <>
+                <a href="/login">log in</a>
+                <Button onClick={GithubLogin}>sign up with github</Button>
+              </>
+            : <>
+                <a href="/my-progress">my progress</a>
+                <a onClick={() => {fire.auth().signOut()}} href="/">log out</a>
+              </>
+          }
         </div>
-      </NavStyles>
-    )
+      </div>
+    </NavStyles>
+  )
 }
 
 export default Navbar

@@ -51,7 +51,7 @@ function Homepage() {
         <h1 className="hero-heading">
           100 days to become a better programmer
         </h1>
-        <Button className="btn hero-btn">get started</Button>
+        <Button className="btn hero-btn">get started with github</Button>
       </div>
         <section className="details-section" id="challenge">
           <h2 className="details-heading">the challenge.</h2>
@@ -76,7 +76,7 @@ function Homepage() {
           <h2 className="details-heading">get ready.</h2>
           <div className="details-text">
             if you’re ready to take on the challenge, sign up via your github account.
-            <Button className="btn details-btn">sign up</Button>
+            <Button className="btn details-btn">sign up with github</Button>
           </div>
         </section>
       <Footer/>
