@@ -1,5 +1,6 @@
 import { fire, githubAuthProvider } from "../firebase";
 import { Octokit } from "@octokit/core";
+import { addUser } from '../services/userServices'
 
 async function GithubLogin() {
     githubAuthProvider.addScope('repo:status');
@@ -22,6 +23,10 @@ async function GithubLogin() {
         const { data } = await octokit.request("/user");
         const username = data.login;
 
+        if (userId && email && username) {
+            addUser(userId, email, username);
+        }
+
     }).catch((error) => {
         // Handle Errors here.
         const errorCode = error.code;
@@ -30,7 +35,7 @@ async function GithubLogin() {
         const email = error.email;
         // The firebase.auth.AuthCredential type that was used.
         const credential = error.credential;
-        
+        // ...
     });
 }
 
