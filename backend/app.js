@@ -65,6 +65,7 @@ app.use((req, res, next) => {
 
 // After allllll that above middleware, we finally handle our own routes!
 app.use(cors());
+app.use(express.json());
 app.use(decodeIDToken);
 app.use('/user', userRouter);
 

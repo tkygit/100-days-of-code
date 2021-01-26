@@ -1,8 +1,10 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components'
 import Navbar from './Navbar'
 import Button from './styles/Button'
 import Footer from './Footer'
+import githubLogin from '../services/githubLoginServices'
 
 const HomepageStyles = styled.div`
   .hero {
@@ -44,6 +46,14 @@ const HomepageStyles = styled.div`
 
 
 function Homepage() {
+
+  const history = useHistory();
+
+  const handleLogin = async () => {
+    const userData = await githubLogin();
+    return userData.startDate ? history.push('/my-progress') : history.push('/get-started')
+  }
+
   return (
     <HomepageStyles>
       <Navbar/>
@@ -51,7 +61,7 @@ function Homepage() {
         <h1 className="hero-heading">
           100 days to become a better programmer
         </h1>
-        <Button className="btn hero-btn">get started with github</Button>
+        <Button className="btn hero-btn" onClick={handleLogin}>get started with github</Button>
       </div>
         <section className="details-section" id="challenge">
           <h2 className="details-heading">the challenge.</h2>
@@ -76,7 +86,7 @@ function Homepage() {
           <h2 className="details-heading">get ready.</h2>
           <div className="details-text">
             if you’re ready to take on the challenge, sign up via your github account.
-            <Button className="btn details-btn">sign up with github</Button>
+            <Button className="btn details-btn" onClick={handleLogin}>sign up with github</Button>
           </div>
         </section>
       <Footer/>

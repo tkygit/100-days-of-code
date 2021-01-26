@@ -5,7 +5,7 @@ const validator = require('validator');
 const mongodbErrorHandler = require('mongoose-mongodb-errors');
 
 const userSchema = new Schema({
-  uid: {
+  userId: {
     type: String,
     required: 'There\'s been an issue authenticating using Github. Please try again later.',
     trim: true
@@ -24,10 +24,12 @@ const userSchema = new Schema({
     trim: true
   },
   startDate: {
-    type: Date
+    type: Date,
+    default: null
   },
   lastCommitDate: {
-    type: Date
+    type: Date,
+    default: null
   }
 });
 

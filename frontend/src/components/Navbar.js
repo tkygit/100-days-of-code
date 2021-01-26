@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { fire } from '../firebase'
 import Button from './styles/Button';
-import GithubLogin from './GithubLogin'
+import ButtonLink from './styles/ButtonLink';
+import githubLogin from '../services/githubLoginServices'
 
 const NavStyles = styled.div`
 
   .bar {
-    display: grid;
+    display: flex;
     grid-template-columns: auto 1fr;
     justify-content: space-between;
     align-items: stretch;
@@ -39,22 +41,21 @@ const NavStyles = styled.div`
       padding: 0 10px;
     }
   }
-
-  @media (max-width: 1300px) {
-    border-top: 1px solid ${props => props.theme.lightgrey};
-    width: 100%;
-    justify-content: center;
-    font-size: 1.5rem;
-  }
 `;
 
 function Navbar() {
 
   const [ isLoggedIn, setIsLoggedIn ] = useState(false);
+  const history = useHistory();
 
   fire.auth().onAuthStateChanged((user) => {
     return user ? setIsLoggedIn(true) : setIsLoggedIn(false);
   });
+
+  const handleLogin = async () => {
+    const userData = await githubLogin();
+    return userData.startDate ? history.push('/my-progress') : history.push('/get-started')
+  }
 
   return (     
     <NavStyles>
@@ -65,8 +66,8 @@ function Navbar() {
           <a href="/#rules">the rules</a>
           { !isLoggedIn 
             ? <>
-                <a href="/login">log in</a>
-                <Button onClick={GithubLogin}>sign up with github</Button>
+                <ButtonLink onClick={handleLogin}>log in</ButtonLink>
+                <Button onClick={handleLogin}>sign up with github</Button>
               </>
             : <>
                 <a href="/my-progress">my progress</a>

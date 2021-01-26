@@ -1,8 +1,10 @@
 import { fire, githubAuthProvider } from "../firebase";
 import { Octokit } from "@octokit/core";
-import { getUser, addUser } from '../services/userServices'
+import { Redirect } from 'react-router-dom'
+import { getUser, addUser } from './userServices'
 
-async function GithubLogin() {
+export default async function githubLogin() {
+    var userReturn;
     githubAuthProvider.addScope('repo:status');
     await fire.auth().signInWithPopup(githubAuthProvider)
     .then(async (result) => {
@@ -24,15 +26,15 @@ async function GithubLogin() {
         const username = data.login;
 
         if (userId && email && username) {
-            const isExistingUser = await getUser(userId);
+            const userFound = await getUser(userId);
 
-            if (isExistingUser === true) {
-                console.log("This user already exists")
+            if (userFound === false) {
+                const newUser = await addUser(userId, email, username);
+                userReturn = newUser
             } else {
-                addUser(userId, email, username);
+                userReturn = userFound
             }
         }
-
     }).catch((error) => {
         // Handle Errors here.
         const errorCode = error.code;
@@ -43,6 +45,5 @@ async function GithubLogin() {
         const credential = error.credential;
         // ...
     });
+    return userReturn;
 }
-
-export default GithubLogin;

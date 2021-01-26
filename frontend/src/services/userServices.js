@@ -18,7 +18,7 @@ export const getUser = async (userId) => {
     const config = {
         headers: header,
         params: {
-            uid: userId
+            userId : userId
         },
     }
 
