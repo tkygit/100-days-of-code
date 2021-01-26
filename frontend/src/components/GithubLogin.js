@@ -1,6 +1,6 @@
 import { fire, githubAuthProvider } from "../firebase";
 import { Octokit } from "@octokit/core";
-import { addUser } from '../services/userServices'
+import { getUser, addUser } from '../services/userServices'
 
 async function GithubLogin() {
     githubAuthProvider.addScope('repo:status');
@@ -24,7 +24,13 @@ async function GithubLogin() {
         const username = data.login;
 
         if (userId && email && username) {
-            addUser(userId, email, username);
+            const isExistingUser = await getUser(userId);
+
+            if (isExistingUser === true) {
+                console.log("This user already exists")
+            } else {
+                addUser(userId, email, username);
+            }
         }
 
     }).catch((error) => {

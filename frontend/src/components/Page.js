@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
-import Meta from './Meta';
 
 const theme = {
   black: '#333333',
@@ -94,7 +93,6 @@ class Page extends Component {
     return (
       <ThemeProvider theme={theme}>
         <StyledPage>
-          <Meta />
           {this.props.children}
           <GlobalStyle />
         </StyledPage>

@@ -6,24 +6,24 @@ const createToken = async () => {
     const token = user && (await user.getIdToken());
 
     return {
-      headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
-      },
     };
 }
 
 const url = 'http://localhost:7777/user'
 
 export const getUser = async (userId) => {
-    const header = createToken();
-
-    const payload = {
-        userId
+    const header = await createToken();
+    const config = {
+        headers: header,
+        params: {
+            uid: userId
+        },
     }
 
     try {
-        const res = await axios.get(url, payload, header);
+        const res = await axios.get(url, config);
         return res.data;
     } catch (e) {
         console.error(e);
@@ -38,7 +38,7 @@ export const addUser = async (userId, email, username) => {
     }
 
     try {
-        const res = await axios.post(url, payload, header);
+        const res = await axios.post(url, payload, { headers: header } );
         return res.data;
     } catch (e) {
         console.error(e);

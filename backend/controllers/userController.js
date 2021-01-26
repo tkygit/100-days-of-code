@@ -2,8 +2,18 @@ const mongoose = require('mongoose');
 const User = mongoose.model('User');
 const userRouter = require('express').Router();
 
-userRouter.get('/', (req, res) => {
-    res.send('This is a GET request router for users.')
+userRouter.get('/', async (req, res) => {
+    const auth = req.currentUser;
+    if (auth) {
+        const userRes = await User.find({ uid: req.query.uid })
+
+        if (userRes.length > 0) {
+            return res.status(200).send(true);
+        } else {
+            return res.status(200).send(false);
+        }
+    }
+    return res.status(403).send('Not authorized');
 })
 
 userRouter.post('/', (req, res) => {
