@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { fire } from '../firebase'
 import Button from './styles/Button';
 import ButtonLink from './styles/ButtonLink';
-import githubLogin from '../services/githubLoginServices'
+import githubLogin from '../services/githubLoginServices';
 
 const NavStyles = styled.div`
 
@@ -43,7 +43,7 @@ const NavStyles = styled.div`
   }
 `;
 
-function Navbar() {
+function Navbar(props) {
 
   const [ isLoggedIn, setIsLoggedIn ] = useState(false);
   const history = useHistory();
@@ -54,10 +54,11 @@ function Navbar() {
 
   const handleLogin = async () => {
     const userData = await githubLogin();
+    localStorage.setItem('userData', JSON.stringify(userData))
     return userData.startDate ? history.push('/my-progress') : history.push('/get-started')
   }
 
-  return (     
+  return (   
     <NavStyles>
       <div className="bar">
         <a href="/"><img src="/100.svg" alt="./100"/></a>
@@ -71,7 +72,10 @@ function Navbar() {
               </>
             : <>
                 <a href="/my-progress">my progress</a>
-                <a onClick={() => {fire.auth().signOut()}} href="/">log out</a>
+                <a onClick={() => {
+                  fire.auth().signOut()
+                  localStorage.clear();
+                }} href="/">log out</a>
               </>
           }
         </div>

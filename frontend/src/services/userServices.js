@@ -12,6 +12,7 @@ const createToken = async () => {
 }
 
 const url = 'http://localhost:7777/user'
+const editUrl = url + '/edit'
 
 export const getUser = async (userId) => {
     const header = await createToken();
@@ -39,6 +40,21 @@ export const addUser = async (userId, email, username) => {
 
     try {
         const res = await axios.post(url, payload, { headers: header } );
+        return res.data;
+    } catch (e) {
+        console.error(e);
+    }
+}
+
+export const editUser = async (userId, field, value) => {
+    const header = await createToken();
+
+    const payload = {
+        userId, field, value
+    }
+
+    try {
+        const res = await axios.post(editUrl, payload, { headers: header } );
         return res.data;
     } catch (e) {
         console.error(e);

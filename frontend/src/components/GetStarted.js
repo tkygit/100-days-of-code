@@ -62,13 +62,18 @@ const GetStartedStyles = styled.div`
 function GetStarted() {
   const [startDate, setStartDate] = useState(moment()) 
   const [calendarFocused, setCalendarFocused] = useState(false)
+  const userData = JSON.parse(localStorage.getItem('userData'))
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  }
 
   return (
     <GetStartedStyles>
       <Navbar/>
       <div className="get-started-container">
-        <form>
-            <span>i,</span><span className="git-username">@gitusername</span>
+        <form onSubmit={handleSubmit}>
+            <span>i,</span><span className="git-username">@{userData.username}</span>
             <span>, commit to starting a 100</span>
             <span> day coding challenge starting </span>
             <SingleDatePicker

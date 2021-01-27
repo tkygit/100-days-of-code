@@ -51,6 +51,7 @@ function Homepage() {
 
   const handleLogin = async () => {
     const userData = await githubLogin();
+    localStorage.setItem('userData', JSON.stringify(userData));
     return userData.startDate ? history.push('/my-progress') : history.push('/get-started')
   }
 
