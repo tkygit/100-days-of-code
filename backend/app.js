@@ -13,7 +13,7 @@ const helpers = require('./helpers');
 const errorHandlers = require('./handlers/errorHandlers');
 const cors = require('cors');
 const decodeIDToken = require('./authenticateToken');
-const userRouter = require('./controllers/userController')
+const userRouter = require('./routes/userRoutes')
 
 // create our Express app
 const app = express();
@@ -67,7 +67,7 @@ app.use((req, res, next) => {
 app.use(cors());
 app.use(express.json());
 app.use(decodeIDToken);
-app.use('/user', userRouter);
+app.use('/api/users', userRouter);
 
 // If that above routes didnt work, we 404 them and forward to error handler
 app.use(errorHandlers.notFound);
