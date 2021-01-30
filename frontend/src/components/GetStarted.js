@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components'
 import moment from 'moment'
 import { SingleDatePicker } from 'react-dates'
@@ -6,6 +7,7 @@ import { SingleDatePicker } from 'react-dates'
 import Navbar from './Navbar'
 import Button from './styles/Button'
 import Footer from './Footer'
+import { editUser } from '../services/userServices'
 
 const GetStartedStyles = styled.div`
   .get-started-container {
@@ -60,12 +62,21 @@ const GetStartedStyles = styled.div`
 `;
 
 function GetStarted() {
+  const history = useHistory();
   const [startDate, setStartDate] = useState(moment()) 
   const [calendarFocused, setCalendarFocused] = useState(false)
   const userData = JSON.parse(localStorage.getItem('userData'))
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const payload = {
+      "startDate": startDate
+    }
+    const updateRes = await editUser(userData.userId, payload);
+
+    if (updateRes.status === '200') {
+      history.push('/my-progress')
+    }
   }
 
   return (

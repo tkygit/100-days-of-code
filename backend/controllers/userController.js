@@ -12,12 +12,12 @@ exports.create = (req, res) => {
     user.save();
     return res.status(201).json(user);
   }
-  return res.status(403).send('Not authorized');
+  return res.status(403).send({'status': '403', 'message': 'Not authorized'});
 };
 
 exports.findOne = async (req, res) => {
   if (!req.body) {
-    return res.status(400).send('Insufficient data to search for user');
+    return res.status(400).send({'status': '400', 'message': 'Insufficient data to search for user'});
   }
   const auth = req.currentUser;
   if (auth) {
@@ -30,12 +30,12 @@ exports.findOne = async (req, res) => {
       return res.status(200).send(false);
     }
   }
-  return res.status(403).send('Not authorized');
+  return res.status(403).send({'status': '403', 'message': 'Not authorized'});
 };
 
 exports.update = async (req, res) => {
   if (!req.body) {
-    return res.status(400).send('Insufficient data to update user');
+    return res.status(400).send({'status': '400', 'message': 'Insufficient data to update user'});
   }
   const auth = req.currentUser;
 
@@ -44,12 +44,12 @@ exports.update = async (req, res) => {
     const updateRes = await User.findOneAndUpdate({ userId: id}, req.body, { useFindAndModify: false })
 
     if (!updateRes) {
-      return res.status(404).send(`Unable to update user with id=${id}.`);
+      return res.status(404).send({'status': '404', 'message': `Unable to update user with id=${id}.`});
     } else {
-      return res.status(200).send('Updated successfully');
+      return res.status(200).send({'status': '200', 'message': 'Updated successfully'});
     }
   }
-  return res.status(403).send('Not authorized');
+  return res.status(403).send({'status': '403', 'message': 'Not authorized'});
 };
 
 exports.delete = async (req, res) => {
@@ -59,10 +59,10 @@ exports.delete = async (req, res) => {
     const id = req.params.id;
     const deleteRes = await User.findOneAndDelete({ userId: id})
     if (!deleteRes) {
-      return res.status(404).send(`Unable to delete user with id=${id}.`);
+      return res.status(404).send({'status': '404', 'message': `Unable to delete user with id=${id}.`});
     } else {
-      return res.status(200).send('Deleted successfully');
+      return res.status(200).send({'status': '200', 'message': 'Deleted successfully'});
     }
   }
-  return res.status(403).send('Not authorized');
+  return res.status(403).send({'status': '403', 'message': 'Not authorized'});
 };
