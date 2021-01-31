@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
-const userRouter = require('express').Router();
 
 exports.create = (req, res) => {
   if (!req.body) {
@@ -8,9 +7,12 @@ exports.create = (req, res) => {
   }
   const auth = req.currentUser;
   if (auth) {
-    const user = new User({ userId: req.body.userId, email: req.body.email, username: req.body.username });
-    user.save();
-    return res.status(201).json(user);
+    const user = User.create({
+      userId: req.body.userId, 
+      email: req.body.email, 
+      username: req.body.username 
+    });
+    return res.status(201).json({'status': '201'});
   }
   return res.status(403).send({'status': '403', 'message': 'Not authorized'});
 };

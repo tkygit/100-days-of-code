@@ -1,7 +1,6 @@
 import { fire, githubAuthProvider } from "../firebase";
 import { Octokit } from "@octokit/core";
-import { Redirect } from 'react-router-dom'
-import { getUser, addUser } from './userServices'
+import { getUser, addUser } from './userServices';
 
 export default async function githubLogin() {
     var userReturn;
