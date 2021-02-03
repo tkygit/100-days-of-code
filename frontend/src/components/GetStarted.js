@@ -8,6 +8,7 @@ import Navbar from './Navbar'
 import Button from './styles/Button'
 import Footer from './Footer'
 import { editUser } from '../services/userServices'
+import { pullEvents } from '../services/commitServices'
 
 const GetStartedStyles = styled.div`
   .get-started-container {
@@ -73,6 +74,8 @@ function GetStarted() {
       "startDate": startDate
     }
     const updateRes = await editUser(userData.userId, payload);
+    
+    pullEvents(userData);
 
     if (updateRes.status === '200') {
       history.push('/my-progress')

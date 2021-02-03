@@ -1,6 +1,7 @@
 import { fire, githubAuthProvider } from "../firebase";
 import { Octokit } from "@octokit/core";
 import { getUser, addUser } from './userServices';
+import { addToken, editToken } from "./tokenServices";
 
 export default async function githubLogin() {
     var userReturn;
@@ -9,9 +10,9 @@ export default async function githubLogin() {
     .then(async (result) => {
         /** @type {firebase.auth.OAuthCredential} */
         const credential = result.credential;
-    
+
         // This gives you a GitHub Access Token. You can use it to access the GitHub API.
-        const token = credential.accessToken;
+        const accessToken = credential.accessToken;
     
         // The signed-in user info.
         const user = result.user;
@@ -19,7 +20,7 @@ export default async function githubLogin() {
         const email = user.email;
 
         const octokit = new Octokit({
-            auth: token,
+            auth: accessToken,
         });
         const { data } = await octokit.request("/user");
         const username = data.login;
@@ -29,8 +30,13 @@ export default async function githubLogin() {
 
             if (userFound === false) {
                 const newUser = await addUser(userId, email, username);
+                await addToken(userId, accessToken);
                 userReturn = newUser
             } else {
+                const tokenPayload = {
+                    "accessToken": accessToken 
+                }
+                await editToken(userId, tokenPayload);
                 userReturn = userFound
             }
         }

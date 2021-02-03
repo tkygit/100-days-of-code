@@ -7,12 +7,13 @@ exports.create = (req, res) => {
   }
   const auth = req.currentUser;
   if (auth) {
-    const user = User.create({
+    const userPayload = {
       userId: req.body.userId, 
       email: req.body.email, 
       username: req.body.username
-    });
-    return res.status(201).json({'status': '201'});
+    }
+    const user = User.create(userPayload);
+    return res.status(201).json(userPayload);
   }
   return res.status(403).send({'status': '403', 'message': 'Not authorized'});
 };
