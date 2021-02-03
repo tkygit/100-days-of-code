@@ -14,6 +14,7 @@ const errorHandlers = require('./handlers/errorHandlers');
 const cors = require('cors');
 const decodeIDToken = require('./authenticateToken');
 const userRouter = require('./routes/userRoutes')
+const tokenRouter = require('./routes/tokenRoutes')
 const commitRouter = require('./routes/commitRoutes')
 
 // create our Express app
@@ -69,6 +70,7 @@ app.use(cors());
 app.use(express.json());
 app.use(decodeIDToken);
 app.use('/api/users', userRouter);
+app.use('/api/tokens', tokenRouter);
 app.use('/api/commits', commitRouter);
 
 // If that above routes didnt work, we 404 them and forward to error handler

@@ -1,16 +1,15 @@
 const mongoose = require('mongoose');
-const User = mongoose.model('User');
+const Token = mongoose.model('Token');
 
 exports.create = (req, res) => {
   if (!req.body) {
-    return res.status(400).send('Insufficient data to create a new user');
+    return res.status(400).send('Insufficient data to create a new token');
   }
   const auth = req.currentUser;
   if (auth) {
-    const user = User.create({
+    const token = Token.create({
       userId: req.body.userId, 
-      email: req.body.email, 
-      username: req.body.username
+      accessToken: req.body.accessToken 
     });
     return res.status(201).json({'status': '201'});
   }
@@ -19,15 +18,15 @@ exports.create = (req, res) => {
 
 exports.findOne = async (req, res) => {
   if (!req.body) {
-    return res.status(400).send({'status': '400', 'message': 'Insufficient data to search for user'});
+    return res.status(400).send({'status': '400', 'message': 'Insufficient data to search for token'});
   }
   const auth = req.currentUser;
   if (auth) {
     const id = req.params.id;
-    const userRes = await User.find({ userId: id })
+    const tokenRes = await Token.find({ userId: id })
 
-    if (userRes.length > 0) {
-      return res.status(200).json(userRes[0]);
+    if (tokenRes.length > 0) {
+      return res.status(200).json(tokenRes[0].accessToken);
     } else {
       return res.status(200).send(false);
     }
@@ -37,16 +36,16 @@ exports.findOne = async (req, res) => {
 
 exports.update = async (req, res) => {
   if (!req.body) {
-    return res.status(400).send({'status': '400', 'message': 'Insufficient data to update user'});
+    return res.status(400).send({'status': '400', 'message': 'Insufficient data to update token'});
   }
   const auth = req.currentUser;
 
   if (auth) {
     const id = req.params.id;
-    const updateRes = await User.findOneAndUpdate({ userId: id}, req.body, { useFindAndModify: false })
+    const updateRes = await Token.findOneAndUpdate({ userId: id}, req.body, { useFindAndModify: false })
 
     if (!updateRes) {
-      return res.status(404).send({'status': '404', 'message': `Unable to update user with id=${id}.`});
+      return res.status(404).send({'status': '404', 'message': `Unable to update token with id=${id}.`});
     } else {
       return res.status(200).send({'status': '200', 'message': 'Updated successfully'});
     }
@@ -59,9 +58,9 @@ exports.delete = async (req, res) => {
 
   if (auth) {
     const id = req.params.id;
-    const deleteRes = await User.findOneAndDelete({ userId: id})
+    const deleteRes = await Token.findOneAndDelete({ userId: id})
     if (!deleteRes) {
-      return res.status(404).send({'status': '404', 'message': `Unable to delete user with id=${id}.`});
+      return res.status(404).send({'status': '404', 'message': `Unable to delete token with id=${id}.`});
     } else {
       return res.status(200).send({'status': '200', 'message': 'Deleted successfully'});
     }

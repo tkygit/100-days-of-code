@@ -23,6 +23,7 @@ mongoose.connection.on('error', (err) => {
 
 // READY?! Let's go!
 require('./models/User');
+require('./models/Token');
 require('./models/Commit');
 
 // Start our app!
