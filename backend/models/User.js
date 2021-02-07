@@ -27,8 +27,8 @@ const userSchema = new Schema({
     type: Date,
     default: null
   },
-  lastCommitDate: {
-    type: Date,
+  lastCommitId: {
+    type: String,
     default: null
   }
 });
