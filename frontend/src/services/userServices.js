@@ -1,14 +1,5 @@
 import axios from 'axios';
-import { fire } from '../firebase';
-
-const createToken = async () => {
-    const user = fire.auth().currentUser;
-    const token = user && (await user.getIdToken());
-    return {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-    };
-}
+import { createToken } from './utils';
 
 const url = 'http://localhost:7777/api/users'
 

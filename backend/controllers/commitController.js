@@ -1,21 +1,29 @@
 const mongoose = require('mongoose');
 const Commit = mongoose.model('Commit');
 
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
   if (!req.body) {
     return res.status(400).send('Insufficient data to create a commit');
   }
   const auth = req.currentUser;
+
   if (auth) {
-    const commit = Commit.create({
-      commitId: req.body.commitId, 
-      userId: req.body.userId, 
-      commitDate: req.body.commitDate,
-      repoName: req.body.repoName,
-      repoUrl: req.body.repoUrl,
-      commitMessage: req.body.commitMessage,
-      commitUrl: req.body.commitUrl,
-     });
+    var bulkOperations = [];
+
+    for (var payload of req.body) {
+      bulkOperations.push({
+        'insertOne': {
+          'document' : payload
+        }
+      });
+    }
+
+    if (bulkOperations.length > 0) {
+      await Commit.bulkWrite(bulkOperations);
+    } else {
+      return res.status(400).send({'status': '400', 'message': 'Insufficient data to create commits'});
+    }
+
     return res.status(201).json({'status': '201'});
   }
   return res.status(403).send({'status': '403', 'message': 'Not authorized'});
