@@ -43,6 +43,7 @@ const pullEvents = async (userData) => {
                 if (lastCommitId != null && lastCommitId === currCommit.sha) {
                     return commits;
                 }
+                const commitUrl = 'https://github.com/' + event.repo.name + '/commit/' + currCommit.sha
                 commits.push({
                     'commitId': currCommit.sha,
                     'userId': userData.userId,
@@ -50,7 +51,7 @@ const pullEvents = async (userData) => {
                     'repoName': event.repo.name,
                     'repoUrl': event.repo.url,
                     'commitMessage': currCommit.message,
-                    'commitUrl': currCommit.url
+                    'commitUrl': commitUrl
                 });
             }
         }
@@ -66,6 +67,20 @@ export const addCommits = async (userData) => {
 
     try {
         const res = await axios.post(url, payload, { headers: header } );
+        return res.data;
+    } catch (e) {
+        console.error(e);
+    }
+}
+
+export const getCommits = async (userId) => {
+    const header = await createToken();
+    const config = {
+        headers: header
+    }
+
+    try {
+        const res = await axios.get(url + `/${userId}`, config);
         return res.data;
     } catch (e) {
         console.error(e);

@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
-import moment from 'moment'
 
-import Navbar from './Navbar'
+import { fire } from '../firebase'
+import { Commit, FirstCommit } from './Commit'
 import Footer from './Footer'
+import Navbar from './Navbar'
+import { getCommits } from '../services/commitServices'
+
 
 const MyProgressStyles = styled.div`
   .my-progress-container {
@@ -91,6 +94,15 @@ const ProgressLabel = styled.div`
 
 function MyProgress() {
 
+  const [commits, setCommits] = useState([])
+  const userData = JSON.parse(localStorage.getItem('userData'))
+
+  fire.auth().onAuthStateChanged(async (user) => {
+    if (user && commits.length === 0) {
+      setCommits(await getCommits(userData.userId));
+    }
+  });
+
   const getPercentage = () => {
     const currDay = 34
     const totalDays = 100
@@ -115,35 +127,10 @@ function MyProgress() {
         }
       </div>
       <div className="commits">
-        <div className="commit-container">
-          <div className="commit-brief">
-            <h4 className="commit-day">day 01</h4>
-            <div className="commit-date">{moment().format("Do MMMM YYYY")}</div>
-          </div>
-          <div className="commit-details">
-            <div className="commit-detail">
-              <div className="repo-name">100-days-of-code</div>
-              <div className="commit-description">Initial commit</div>
-              <a href="wwww.github.com" className="commit-url">Go to commit</a>
-            </div>
-            <div className="commit-detail">
-              <div className="repo-name">100-days-of-code</div>
-              <div className="commit-description">Initial commit</div>
-              <a href="wwww.github.com" className="commit-url">Go to commit</a>
-            </div>
-          </div>
-        </div>
-        <div className="commit-container">
-        <div className="commit-brief">
-          <h4 className="commit-day">day 00</h4>
-          <div className="commit-date">{moment().format("Do MMMM YYYY")}</div>
-        </div>
-        <div className="commit-details">
-          <div className="commit-detail">
-            <div className="commit-description">Challenge started</div>
-          </div>
-        </div>
-      </div>
+        {commits.map((commit) => (
+          <Commit dayNumber="01" key={commit.commitId} commit={commit}/>
+        ))}
+        <FirstCommit startDate={userData.startDate}/>
       </div>
     </div>
     <Footer/>
