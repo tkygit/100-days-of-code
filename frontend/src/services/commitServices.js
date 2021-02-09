@@ -2,6 +2,7 @@ import axios from 'axios';
 import { Octokit } from "@octokit/core";
 import { getToken } from "./tokenServices";
 import { createToken } from './utils';
+import { editUser } from "./userServices";
 
 const url = 'http://localhost:7777/api/commits'
 
@@ -19,11 +20,24 @@ const pullEvents = async (userData) => {
     const lastCommitId = userData.lastCommitId;
 
     var commits = [];
+    var newLastCommit = null
 
     for (var i = 0; i < data.length; i++) {
         var event = data[i]
         if ("commits" in data[i].payload) {
             const commitsArray = event.payload.commits;
+            
+            // Update the last commit ID in the DB
+            if (newLastCommit == null) {
+                newLastCommit = commitsArray[0].sha
+                const editPayload = {
+                    lastCommitId: newLastCommit
+                };
+
+                editUser(userData.userId, editPayload);
+            }
+
+            // Add new commits
             for (var j = 0; j < commitsArray.length; j++) {
                 const currCommit = commitsArray[j];
                 if (lastCommitId != null && lastCommitId === currCommit.sha) {
@@ -41,7 +55,7 @@ const pullEvents = async (userData) => {
             }
         }
     }
-    
+
     return commits;
 }
 
