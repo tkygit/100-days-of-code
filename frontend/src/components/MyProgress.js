@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import moment from 'moment'
 import styled from 'styled-components'
 
 import { fire } from '../firebase'
@@ -95,19 +96,25 @@ const ProgressLabel = styled.div`
 function MyProgress() {
 
   const [commits, setCommits] = useState([])
+  const [currProgress, setCurrProgress] = useState(0);
   const userData = JSON.parse(localStorage.getItem('userData'))
 
   fire.auth().onAuthStateChanged(async (user) => {
     if (user && commits.length === 0) {
-      setCommits(await getCommits(userData.userId));
+      const userCommits = await getCommits(userData.userId);
+      var commitDates = []
+      for (var commit of userCommits) {
+        commitDates.push(moment(commit.commitDate).format("Do MMMM YYYY"));
+      }
+      setCurrProgress(new Set(commitDates).size);
+      setCommits(userCommits);
     }
   });
 
   const getPercentage = () => {
-    const currDay = 34
     const totalDays = 100
     
-    return Math.round(currDay/totalDays * 100)
+    return Math.round(currProgress/totalDays * 100)
   }
 
   return (
